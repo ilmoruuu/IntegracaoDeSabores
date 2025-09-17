@@ -1,12 +1,12 @@
-package consumers;
+package org.example;
 
 import com.rabbitmq.client.*;
 import java.nio.charset.StandardCharsets;
 
-public class DeliveryConsumer {
+public class FinanceConsumer {
     private static final String EXCHANGE = "orders"; //Aqui definimos de QUAL exchange estamos recebendo
-    private static final String QUEUE = "delivery_queue";
-    private static final String ROUTING_KEY = "order.delivery";
+    private static final String QUEUE = "finance_queue";
+    private static final String ROUTING_KEY = "order.finance";
 
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
@@ -20,11 +20,11 @@ public class DeliveryConsumer {
         channel.queueDeclare(QUEUE, true, false, false, null);
         channel.queueBind(QUEUE, EXCHANGE, ROUTING_KEY);
 
-        System.out.println("[Motoboy] - Aguardando pedidos de entregas...");
+        System.out.println("[Financeiro] - Aguardando vendas...");
 
         DeliverCallback callback = (consumerTag, delivery) -> {
             String msg = new String(delivery.getBody(), StandardCharsets.UTF_8); //Aqui vai extrair o corpo da requisição
-            System.out.println("Endereço recebido: " + msg);
+            System.out.println("Registro de venda registrada: " + msg);
             channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
         };
 

@@ -1,4 +1,4 @@
-package producers;
+package org.example;
 
 import com.rabbitmq.client.*;
 

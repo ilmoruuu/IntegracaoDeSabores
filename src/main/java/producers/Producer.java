@@ -20,7 +20,8 @@ public class Producer {
         try (Connection conn = factory.newConnection();
              Channel channel = conn.createChannel()) {
 
-            channel.exchangeDeclare(EXCHANGE, BuiltinExchangeType.DIRECT, true); //Aqui definimos o "comportamento" do exchange:
+            //Adendo pra esse parâmetro "b", ele vai definir a "durabilidade", se for true ele permanece após reiniciar o RabbitMQ
+            channel.exchangeDeclare(EXCHANGE, BuiltinExchangeType.DIRECT, true);
 
             String orderId = "order-001";
 

@@ -1,16 +1,67 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.example</groupId>
   <artifactId>IntegracaoDeSabores</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Archetype - IntegracaoDeSabores</name>
-  <url>http://maven.apache.org</url>
+  <name>IntegracaoDeSabores</name>
+
   <dependencies>
     <dependency>
       <groupId>com.rabbitmq</groupId>
       <artifactId>amqp-client</artifactId>
       <version>5.26.0</version>
     </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.4.14</version>
+    </dependency>
+
   </dependencies>
+  <build>
+    <plugins>
+      <!-- Plugin para executar classes Java -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <!-- Produtor -->
+    <profile>
+      <id>producer</id>
+      <properties>
+        <exec.mainClass>org.example.OrderProducer</exec.mainClass>
+      </properties>
+    </profile>
+
+    <!-- Consumidor da cozinha -->
+    <profile>
+      <id>kitchen</id>
+      <properties>
+        <exec.mainClass>org.example.KitchenConsumer</exec.mainClass>
+      </properties>
+    </profile>
+
+    <!-- Consumidor da entrega -->
+    <profile>
+      <id>delivery</id>
+      <properties>
+        <exec.mainClass>org.example.DeliveryConsumer</exec.mainClass>
+      </properties>
+    </profile>
+
+    <!-- Consumidor do financeiro -->
+    <profile>
+      <id>finance</id>
+      <properties>
+        <exec.mainClass>org.example.FinanceConsumer</exec.mainClass>
+      </properties>
+    </profile>
+  </profiles>
 </project>

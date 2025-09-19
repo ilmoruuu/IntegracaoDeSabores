@@ -14,7 +14,9 @@ public class Producer {
     private static final String FINANCE_KEY = "order.finance";
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Bem vindo à Integração de Sabores!\n A melhor e maior pizzaria do nossa rua!");
+        System.out.println("------------------------------------------------");
+        System.out.println("Bem vindo à Integração de Sabores!\nA melhor e maior pizzaria do nossa rua!");
+        System.out.println("------------------------------------------------");
         ConnectionFactory factory = new ConnectionFactory(); //Instanciamos a nossa conexão
         factory.setHost("localhost");
         try (Connection conn = factory.newConnection();
